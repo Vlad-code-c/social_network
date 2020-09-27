@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+        <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex; justify-content: center;">
+
+            <div th:insert="blocks/left_panel :: nav_btns_root"></div>
+
+
+            <div class="main">
+                <div class="banner">
+                    <img class="avatar" th:src="${avatar}" alt="">
+                </div>
+                <div>
+                    <p th:text="${name}"></p>
+                    <p th:text="${id}"></p>
+                    <p th:text="${joined}"></p>
+                </div>
+            </div>
+
+
+
+
+            <div th:insert="blocks/right_panel :: right_panel"></div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+</body>
+</html>
