@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- <link rel="stylesheet" href="../../static/main.css"> -->
+</head>
+<body>
+
+
+
+
+    <div class="main">
+        <div class="block1">
+            
+            <div>
+                <div>About this wonderfull project</div>
+                <div>About this wonderfull project</div>
+                <div>About this wonderfull project</div>
+            </div>
+
+            
+        </div>
+        <div class="block2">
+            <div>
+                       
+       <div class="login_main">
+           <div>
+               
+               <div>
+                   <h2>Create your account</h2>
+                    </div>
+                    
+                    <form class="form-signin" method="post" action="/login">
+                        <p>
+                            <label for="username" class="sr-only">Name</label>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Name" required="true" autofocus="">
+                        </p>
+                        <p>
+                            <label for="email" class="sr-only">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Email" required="true" autofocus="">
+                        </p>
+                        <p>
+                            <label for="password" class="sr-only">Password</label>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="true">
+                        </p>
+                                        
+                        <p>Date of birth</p>
+                        <input type="date" id="date" name="date" class="form-control" required="true">
+
+                        
+                        
+                        
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                    </form>
+                </div>
+            </div>
+            
+            
+            
+        </div>
+
+
+    
+      
+
+    <style>
+       
+       .login_main{
+           display: flex;
+           justify-content: center;            
+            color: white;
+            font-size: 20px;
+       }
+       .form-signin{
+           margin-top: 25px;
+       }
+       .form-control{
+           width: 350px;
+           border-radius: 10px;
+       }
+
+       body{
+            margin: 0px;
+            background-color: #15202B; 
+        }
+        .main{
+            display: flex; 
+            justify-content: center;
+        }
+        .block1, .block2{
+            background-color: #1A91DA; 
+            width: 50vw; 
+            height: 100vh;
+
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+
+            font-size: 25px;
+            color: white;
+
+        }
+
+        .block2{
+            background-color: #15202B;
+        }
+
+   
+
+        button{  
+            background-color: #15202B;
+            color: white;   
+        }
+        button:hover{
+            color: #1DA1F2 !important;
+            background-color: #162D40 !important;
+        }
+    </style>
+  <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  
+</body>
+</html>

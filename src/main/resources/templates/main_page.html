@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="main">
+
+        <div th:insert="blocks/auth_block1 :: block1"></div>
+
+
+        <div class="block2">
+            <div>
+                <div>Join us Today!</div>
+                <a href="/signup">
+                    <button class="btn signup">Sign up</button>
+                </a>
+                <a href="/login">
+                    <button class="btn login">Log in</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <style>
+        body{
+            margin: 0px;
+        }
+        .main{
+            display: flex; 
+            justify-content: center;
+        }
+        .block1, .block2{
+            background-color: #1A91DA; 
+            width: 50vw; 
+            height: 100vh;
+
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+
+            font-size: 25px;
+            color: white;
+
+        }
+
+       
+        .block2{
+            background-color: #15202B; 
+        }
+
+        .block2 > div{
+            display: flex;
+            flex-direction: column;
+        }
+        .signup{
+            color: white;
+            background-color: #1A91DA;
+            width: 350px;
+            height: 40px;
+            margin-bottom: 10px;
+            border-radius: 15px;
+        }
+
+        .signup:hover{
+            background-color: #1978b3 !important;
+            color: white !important;
+        }
+        
+        .login{
+            color: #1A91DA;
+            border-color: #1A91DA;
+            height: 40px;
+            width: 350px;
+            border-radius: 15px;
+        }
+
+
+
+        button{  
+            background-color: #15202B;
+            color: white;   
+        }
+        button:hover{
+            color: #1DA1F2 !important;
+            background-color: #162D40 !important;
+        }
+    </style>
+
+
+
+
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+</body>
+</html>
