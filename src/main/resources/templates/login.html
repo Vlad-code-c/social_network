@@ -30,7 +30,7 @@
                         </h2>
                     </div>
                     
-                    <form class="form-signin" method="post" action="/login">
+                    <form class="form-signin" method="post" action="#" th:action="@{/login}">
                         <p>
                             <label for="username" class="sr-only">Username</label>
                             <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
@@ -39,14 +39,15 @@
                             <label for="password" class="sr-only">Password</label>
                             <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
                         </p>
-                                        
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+                        <p th:if="${param.error}">Invalid username and password.</p>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
                                 
                     </form>
+
                     <div style="font-size: 15px; display: flex; justify-content: space-evenly; margin-top: 7px;">
                         <a href="">Forgot Password?</a>
-                        <a href="">Sign Up for Twitter</a>
-
+                        <a href="/signup">Sign Up for Twitter</a>
                     </div>
                 </div>
             </div>

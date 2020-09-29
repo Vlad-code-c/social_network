@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +36,7 @@
                    <h2>Create your account</h2>
                     </div>
                     
-                    <form class="form-signin" method="post" action="/login">
+                    <form class="form-signin" method="post" action="#" th:action="@{/signup}">
                         <p>
                             <label for="username" class="sr-only">Name</label>
                             <input type="text" id="username" name="username" class="form-control" placeholder="Name" required="true" autofocus="">

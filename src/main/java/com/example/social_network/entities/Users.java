@@ -1,20 +1,17 @@
 package com.example.social_network.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
-    private String nickname;
-    private String name;
+    private String username;
     private String bio;
     private String profile_photo_url;
     private Date birthday;
@@ -31,45 +28,21 @@ public class Users {
 
     public Users(){}
 
-    public Users(Integer id, String nickname, String name, String bio, String profile_photo_url, Date birthday, String email, String password, boolean is_active, boolean is_blocked, Date created_at, Date updated_at) {
-        this.id = id;
-        this.nickname = nickname;
-        this.name = name;
-        this.bio = bio;
-        this.profile_photo_url = profile_photo_url;
-        this.birthday = birthday;
-        this.email = email;
-        this.password = password;
-        this.is_active = is_active;
-        this.is_blocked = is_blocked;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
+    public String getUsername() {
+        return username;
     }
 
-    public Integer getId() {
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
 
 
     public String getBio() {
