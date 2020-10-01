@@ -10,8 +10,7 @@ public class MainController {
 
     @GetMapping("/main")
     public String main(Model model){
-        return "main_page";
-//        return "main";
+        return "main";
     }
 
     @GetMapping("/")

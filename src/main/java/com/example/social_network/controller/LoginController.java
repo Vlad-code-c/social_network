@@ -16,13 +16,13 @@ public class LoginController {
         System.out.println("FUCK YOU [signup]");
         model.addAttribute("userForm", new User());
 
-        return "signup";
+        return "/signup";
     }
 
     @GetMapping("/login")
     public String logIn(){
         System.out.println("FUCK YOU [login]");
-        return "login";
+        return "/login";
     }
 
 
@@ -45,14 +45,7 @@ public class LoginController {
 //
 //        usersRepository.save(user);
 
-        if (bindingResult.hasErrors()){
-            return "signup";
-        }
-
-
-
-
-        return "redirect:/login";
+        return "/login";
     }
 //    @PostMapping("/signup")
 //    public String addNewUser (@RequestParam(required = true) String username,
@@ -97,7 +90,15 @@ public class LoginController {
 
 
 
-        return "main";
+        return "/main";
+    }
+
+    @GetMapping("*")
+    public String v(){
+
+        System.out.println("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE! [any]");
+
+        return "main_page_auth";
     }
 
 }
