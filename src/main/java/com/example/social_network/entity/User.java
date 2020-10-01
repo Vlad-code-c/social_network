@@ -1,14 +1,18 @@
-package com.example.social_network.entities;
+package com.example.social_network.entity;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
-public class Users {
+public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
@@ -16,6 +20,8 @@ public class Users {
     private String profile_photo_url;
     private Date birthday;
     private String email;
+
+
 
     private String password;
 
@@ -26,7 +32,7 @@ public class Users {
     private Date updated_at;
 
 
-    public Users(){}
+    public User(){}
 
     public String getUsername() {
         return username;

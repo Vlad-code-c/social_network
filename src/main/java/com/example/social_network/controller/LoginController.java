@@ -1,23 +1,21 @@
-package com.example.social_network.controllers;
+package com.example.social_network.controller;
 
-import com.example.social_network.entities.Users;
-import com.example.social_network.repo.UsersRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.social_network.entity.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.sql.Date;
 
 @Controller
 public class LoginController {
-    @Autowired
-    private UsersRepository usersRepository;
-
 
     @GetMapping("/signup")
-    public String signUp(){
+    public String signUp(Model model){
         System.out.println("FUCK YOU [signup]");
+        model.addAttribute("userForm", new User());
+
         return "signup";
     }
 
@@ -29,23 +27,29 @@ public class LoginController {
 
 
     @PostMapping("/signup")
-    public String addUser(Users user){
-        Users userFromDb = usersRepository.findByUsername(user.getUsername());
+    public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model){
+        //User userFromDb = usersRepository.findByUsername(user.getUsername());
 
         System.out.println("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE! [signup]");
 
 
-        if(userFromDb != null){
-            System.out.println("User Exists arleady");
+//        if(userFromDb != null){
+//            System.out.println("User Exists arleady");
+//        }
+//
+//
+//
+//        Date date_ = new Date(System.currentTimeMillis());
+//        user.setCreated_at(date_);
+//        user.setUpdated_at(date_);
+//
+//        usersRepository.save(user);
+
+        if (bindingResult.hasErrors()){
+            return "signup";
         }
 
 
-
-        Date date_ = new Date(System.currentTimeMillis());
-        user.setCreated_at(date_);
-        user.setUpdated_at(date_);
-
-        usersRepository.save(user);
 
 
         return "redirect:/login";
@@ -87,7 +91,7 @@ public class LoginController {
 //    }
 
     @PostMapping("/login")
-    public String loginUser(Users user){
+    public String loginUser(User user){
 
         System.out.println("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE! [login]");
 

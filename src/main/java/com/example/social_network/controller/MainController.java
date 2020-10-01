@@ -1,4 +1,4 @@
-package com.example.social_network.controllers;
+package com.example.social_network.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
