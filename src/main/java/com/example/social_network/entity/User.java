@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
+@Table(name = "t_user")
 public class User {
 
     @Id
@@ -20,7 +21,6 @@ public class User {
     private String profile_photo_url;
     private Date birthday;
     private String email;
-
 
 
     private String password;
