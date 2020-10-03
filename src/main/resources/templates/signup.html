@@ -40,6 +40,7 @@
                         <p>
                             <label for="username" class="sr-only">Name</label>
                             <input type="text" id="username" name="username" class="form-control" placeholder="Name" required="true" autofocus="">
+                            <p style="text-size:13px" th:text="${usernameError}"></p>
                         </p>
                         <p>
                             <label for="email" class="sr-only">Email</label>
@@ -51,12 +52,17 @@
                         </p>
                                         
                         <p>Date of birth</p>
-                        <input type="date" id="date" name="date" class="form-control" required="true">
+                        <p>
+                            <input type="date" id="date" name="birthday" class="form-control" required="true">
+                        </p>
 
-                        
-                        
-                        
                         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+
+                        <div style="font-size: 15px; display: flex; justify-content: flex-end; margin-top: 7px;">
+                            <a href="/login">Log In</a>
+                        </div>
+
                     </form>
                 </div>
             </div>

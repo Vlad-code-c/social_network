@@ -1,38 +1,51 @@
 package com.example.social_network.entity;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "t_user")
-public class User {
+public class MyUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
+    private String password;
+
+    private String role;
+
+
     private String bio;
     private String profile_photo_url;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
     private String email;
 
 
-    private String password;
 
     private boolean is_active;
     private boolean is_blocked;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date created_at;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updated_at;
 
 
-    public User(){}
+    public MyUser(){}
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public String getUsername() {
         return username;

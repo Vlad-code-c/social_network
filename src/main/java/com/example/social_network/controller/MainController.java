@@ -1,5 +1,6 @@
 package com.example.social_network.controller;
 
+import com.example.social_network.entity.MyUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +23,21 @@ public class MainController {
 
     @GetMapping("/profile")
     public String profile(Model model){
-        model.addAttribute("name", "Vladz");
-        model.addAttribute("id", "@Vladz5464");
+        MyUser user = LoginController.myUser;
+
+        if (user == null){
+            user = new MyUser();
+
+            user.setUsername("Username");
+            user.setProfile_photo_url("https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png");
+            user.setId(423l);
+        }
+
+
+        model.addAttribute("name", user.getUsername());
+        model.addAttribute("id", "@" + user.getUsername().trim() + user.getId());
         model.addAttribute("joined", "Joined September 18, 2020");
-        model.addAttribute("avatar", "https://yt3.ggpht.com/-Ev00jf2SDp0/AAAAAAAAAAI/AAAAAAAAAAA/K28gnaebNfU/s900-c-k-no-rj-c0xffffff/photo.jpg");
+        model.addAttribute("avatar", user.getProfile_photo_url());
 
         return "profile";
     }
