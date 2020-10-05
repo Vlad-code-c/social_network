@@ -20,16 +20,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(customUserDetailsService);
     }
 
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .inMemoryAuthentication()
-//                .withUser("u")
-//                .password("p")
-//                .authorities("ROLE_USER");
-//    }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{

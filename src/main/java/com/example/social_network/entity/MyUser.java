@@ -73,6 +73,9 @@ public class MyUser {
     }
 
     public String getProfile_photo_url() {
+        if (this.profile_photo_url == "" || this.profile_photo_url == null){
+            return "https://www.shareicon.net/data/512x512/2016/07/10/119669_people_512x512.png";
+        }
         return profile_photo_url;
     }
 
