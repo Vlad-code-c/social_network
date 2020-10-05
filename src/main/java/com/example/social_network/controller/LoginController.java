@@ -26,7 +26,7 @@ public class LoginController {
     public String signUp(WebRequest request, Model model){
         model.addAttribute("userForm", new MyUser());
 
-        return "/signup";
+        return "signup";
     }
 
     @GetMapping("/login")
