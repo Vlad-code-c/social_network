@@ -41,7 +41,7 @@ public class LoginController {
 
         if (!customUserDetailsService.saveUser(user)){
             model.addAttribute("usernameError", "User exists!");
-            return "/signup";
+            return "signup";
         }
 
         return "/login";
