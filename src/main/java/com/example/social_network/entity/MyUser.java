@@ -3,7 +3,10 @@ package com.example.social_network.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "t_user")
@@ -16,7 +19,10 @@ public class MyUser {
     private String username;
     private String password;
 
-    private String role;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
 
     private String bio;
@@ -37,14 +43,39 @@ public class MyUser {
     private Date updated_at;
 
 
-    public MyUser(){}
-
-    public String getRole() {
-        return role;
+    public String getCustomId(){
+        return this.getUsername().trim() + "@" +
+                String.format("%04d", this.getId());
+                //0 - pat with zeros
+                //3 - minimum of 3
+                //d - as a decimal integer
+    }
+    public String getCustomUsername(){
+        if (username.length() >= 2)
+            return this.username.substring(0,1).toUpperCase() +
+                    this.username.substring(1);
+        else
+            return username.toUpperCase();
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public String getCustomJoined(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(this.getCreated_at());
+
+        return "Joined " +
+                calendar.get(Calendar.DAY_OF_MONTH) + " " +
+                new SimpleDateFormat("MMM").format(calendar.getTime()) + ", " +
+                calendar.get(Calendar.YEAR);
+    }
+
+    public MyUser(){}
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public String getUsername() {

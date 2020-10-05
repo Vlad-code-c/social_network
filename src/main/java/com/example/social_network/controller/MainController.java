@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 @Controller
 public class MainController {
 
@@ -29,10 +32,7 @@ public class MainController {
 
     @GetMapping("/profile")
     public String profile(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-
-        MyUser user = userRepository.findByUsername(currentPrincipalName);
+        MyUser user = getUser();
 
 
         if (user == null){
@@ -40,23 +40,35 @@ public class MainController {
 
             user.setUsername("Username");
             user.setProfile_photo_url("https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png");
-            user.setId(423l);
+            user.setCreated_at(Calendar.getInstance().getTime());
+            user.setId(0l);
         }
 
 
-        model.addAttribute("name", user.getUsername());
-        model.addAttribute("id", "@" + user.getUsername().trim() + user.getId());
-        model.addAttribute("joined", "Joined September 18, 2020");
-        model.addAttribute("avatar", user.getProfile_photo_url());
+        model.addAttribute("user", user);
+
+//        model.addAttribute("name", user.getUsername());
+//        model.addAttribute("id", "@" + user.getUsername().trim() + user.getId());
+//        model.addAttribute("joined", "Joined " +
+//                                        calendar.get(Calendar.DAY_OF_MONTH) + " " +
+//                                        new SimpleDateFormat("MMM").format(calendar.getTime()) + ", " +
+//                                        calendar.get(Calendar.YEAR));
+//        model.addAttribute("avatar", user.getProfile_photo_url());
+
 
         return "profile";
     }
 
 
 
+    public MyUser getUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
 
+        MyUser user = userRepository.findByUsername(currentPrincipalName);
 
-
+        return user;
+    }
 
 
 }

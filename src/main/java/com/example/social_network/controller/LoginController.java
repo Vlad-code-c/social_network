@@ -1,6 +1,7 @@
 package com.example.social_network.controller;
 
 import com.example.social_network.entity.MyUser;
+import com.example.social_network.entity.Role;
 import com.example.social_network.repository.UserRepository;
 import com.example.social_network.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Collections;
 
 @Controller
 public class LoginController {
@@ -30,21 +33,18 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public ModelAndView getLoginPage(){
-        System.out.println("HELOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOWWWWWWWWWWWWWWWWW GEEEEEEET");
-
-        return new ModelAndView("login","login", new MyUser());
+    public String getLoginPage(){
+        return "login";
     }
 
     @PostMapping("/signup")
     public String addUser(@ModelAttribute("userForm") MyUser user, Model model){
+        user.setRoles(Collections.singleton(Role.USER));
 
         if (!customUserDetailsService.saveUser(user)){
             model.addAttribute("usernameError", "User exists!");
             return "signup";
         }
-
-
         return "login";
     }
 
@@ -52,5 +52,7 @@ public class LoginController {
     public String v(){
         return "main_page_auth";
     }
+
+
 
 }

@@ -34,7 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         UserDetails user = User.builder()
                 .username(myUser.getUsername())
                 .password(myUser.getPassword())
-                .roles(myUser.getRole())
+                .roles(Role.USER.toString())
                 .build();
 
 
@@ -49,7 +49,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
 
-        user.setRole("USER");
+        user.setRoles(Collections.singleton(Role.USER));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setBio("");
         user.setIs_active(true);

@@ -18,12 +18,12 @@
 
             <div class="main">
                 <div class="banner">
-                    <img class="avatar" th:src="${avatar}" alt="">
+                    <img class="avatar" th:src="${user.getProfile_photo_url()}" alt="">
                 </div>
                 <div>
-                    <p th:text="${name}"></p>
-                    <p th:text="${id}"></p>
-                    <p th:text="${joined}"></p>
+                    <p th:text="${user.getCustomUsername()}"></p>
+                    <p th:text="${user.getCustomId()}"></p>
+                    <p th:text="${user.getCustomJoined()}"></p>
                 </div>
             </div>
 
