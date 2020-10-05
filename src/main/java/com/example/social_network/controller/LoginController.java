@@ -43,6 +43,7 @@ public class LoginController {
             model.addAttribute("usernameError", "User exists!");
             return "signup";
         }
+        
 
         return "/login";
     }
