@@ -1,6 +1,7 @@
 package com.example.social_network.controller;
 
 import com.example.social_network.entity.MyUser;
+import com.example.social_network.entity.Role;
 import com.example.social_network.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 
 @Controller
 public class MainController {
@@ -20,11 +23,17 @@ public class MainController {
 
     @GetMapping("/main")
     public String main(Model model){
+        MyUser user = getUser();
+        model.addAttribute("user", user);
+
         return "main";
     }
 
     @GetMapping("/")
     public String mainM(Model model){
+        MyUser user = getUser();
+        model.addAttribute("user", user);
+
         return "main";
     }
 
@@ -34,26 +43,7 @@ public class MainController {
     public String profile(Model model){
         MyUser user = getUser();
 
-
-        if (user == null){
-            user = new MyUser();
-
-            user.setUsername("Username");
-            user.setProfile_photo_url("https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png");
-            user.setCreated_at(Calendar.getInstance().getTime());
-            user.setId(0l);
-        }
-
-
         model.addAttribute("user", user);
-
-//        model.addAttribute("name", user.getUsername());
-//        model.addAttribute("id", "@" + user.getUsername().trim() + user.getId());
-//        model.addAttribute("joined", "Joined " +
-//                                        calendar.get(Calendar.DAY_OF_MONTH) + " " +
-//                                        new SimpleDateFormat("MMM").format(calendar.getTime()) + ", " +
-//                                        calendar.get(Calendar.YEAR));
-//        model.addAttribute("avatar", user.getProfile_photo_url());
 
 
         return "profile";
@@ -66,6 +56,16 @@ public class MainController {
         String currentPrincipalName = authentication.getName();
 
         MyUser user = userRepository.findByUsername(currentPrincipalName);
+
+        if (user == null){
+            user = new MyUser();
+
+            user.setUsername("Username");
+            user.setRoles(Collections.singleton(Role.USER));
+            user.setProfile_photo_url("https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png");
+            user.setCreated_at(Calendar.getInstance().getTime());
+            user.setId(0l);
+        }
 
         return user;
     }

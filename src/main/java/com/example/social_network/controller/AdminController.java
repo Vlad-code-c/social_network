@@ -1,6 +1,5 @@
 package com.example.social_network.controller;
 
-import ch.qos.logback.core.joran.conditional.ElseAction;
 import com.example.social_network.entity.MyUser;
 import com.example.social_network.entity.Role;
 import com.example.social_network.repository.UserRepository;
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -17,13 +17,14 @@ public class AdminController {
     private UserRepository userRepository;
 
     @GetMapping("/admin")
-    public String admin(){
+    public String admin(Model model){
         MyUser user = getUser();
+        model.addAttribute("user", user);
 
-        if (user.getRoles().contains(Role.ADMIN))
-            System.out.println("ADMIN");
-        else
-            System.out.println("USER");
+        if (user.isAdmin()) {
+            model.addAttribute("users", userRepository.findAll());
+            return "admin_page";
+        }
 
         return "main";
 

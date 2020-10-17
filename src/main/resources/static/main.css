@@ -19,6 +19,8 @@ button:hover{
 .nav_btns > button {
     font-size: 20px;
 }
+
+
 .main{
     width: 50vw;
 
@@ -28,6 +30,13 @@ button:hover{
     
     color: white;
     font-size: 20px;
+}
+
+.btn_logout{
+    align-content: end;
+    align-self: end;
+    align-self: end;
+    justify-content: end;
 }
 
 .avatar {
@@ -66,3 +75,4 @@ button:hover{
 .nav_btn{
     font-size: 20px;
 }
+

@@ -68,6 +68,12 @@ public class MyUser {
                 calendar.get(Calendar.YEAR);
     }
 
+    public boolean isAdmin(){
+        if (this.getRoles().contains(Role.ADMIN))
+            return true;
+        return false;
+    }
+
     public MyUser(){}
 
     public Set<Role> getRoles() {

@@ -16,5 +16,23 @@
             </a>
         </div>
 
+
+        <div th:if="${user.isAdmin()}" class="nav_btns">
+            <a href="/admin">
+                <button type="button" class="btn btn-outline-dark nav_btn">Admin Panel</button>
+            </a>
+        </div>
+
+        <div class="nav_btns">
+            <a th:href="@{/logout}">
+                <button type="button" class="btn btn-outline-dark nav_btn"
+                    style="background-color: #1DA1F2; color: white; width: 65%; border-radius: 15px;">
+                    Log Out
+                </button>
+            </a>
+        </div>
+
+
+
     </div>
 </div>
