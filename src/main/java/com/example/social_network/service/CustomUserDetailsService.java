@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Set;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -48,8 +49,11 @@ public class CustomUserDetailsService implements UserDetailsService {
             return false;
         }
 
+        Set<Role> role = Collections.singleton(Role.USER);
+        if (user.getRoles().contains(Role.ADMIN))
+            role = Collections.singleton(Role.ADMIN);
 
-        user.setRoles(Collections.singleton(Role.USER));
+        user.setRoles(role);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setBio("");
         user.setIs_active(true);

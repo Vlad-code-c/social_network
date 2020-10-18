@@ -76,6 +76,26 @@ public class MyUser {
 
     public MyUser(){}
 
+    public MyUser(
+            Long id, String username, String password,
+            Set<Role> roles, String bio, String profile_photo_url,
+            Date birthday, String email, boolean is_active,
+            boolean is_blocked, Date created_at, Date updated_at
+    ) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+        this.bio = bio;
+        this.profile_photo_url = profile_photo_url;
+        this.birthday = birthday;
+        this.email = email;
+        this.is_active = is_active;
+        this.is_blocked = is_blocked;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }

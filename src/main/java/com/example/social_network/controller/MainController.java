@@ -3,6 +3,7 @@ package com.example.social_network.controller;
 import com.example.social_network.entity.MyUser;
 import com.example.social_network.entity.Role;
 import com.example.social_network.repository.UserRepository;
+import com.example.social_network.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,9 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
+import java.time.LocalDate;
+import java.util.*;
 
 @Controller
 public class MainController {
@@ -48,7 +48,6 @@ public class MainController {
 
         return "profile";
     }
-
 
 
     public MyUser getUser(){
