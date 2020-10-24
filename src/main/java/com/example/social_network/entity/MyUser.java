@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,6 +15,7 @@ public class MyUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
     private String username;
@@ -32,8 +34,6 @@ public class MyUser {
     private Date birthday;
     private String email;
 
-
-
     private boolean is_active;
     private boolean is_blocked;
 
@@ -42,6 +42,22 @@ public class MyUser {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updated_at;
 
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "chats_users",
+            joinColumns = {
+                @JoinColumn(name = "user_id")
+            },
+            inverseJoinColumns = {
+                @JoinColumn(name = "chat_id")
+            })
+    private Set<Chat> chats = new HashSet<Chat>();
+
+
+    @OneToOne(fetch = FetchType.LAZY,
+                cascade = CascadeType.ALL,
+                mappedBy = "user")
+    private Message message;
 
     public String getCustomId(){
         return this.getUsername().trim() + "@" +
@@ -194,5 +210,21 @@ public class MyUser {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public Set<Chat> getChats() {
+        return chats;
+    }
+
+    public void setChats(Set<Chat> chats) {
+        this.chats = chats;
+    }
+
+    public Message getMessage() {
+        return message;
+    }
+
+    public void setMessage(Message message) {
+        this.message = message;
     }
 }
