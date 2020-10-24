@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Messages</title>
+</head>
+<body>
+
+
+<div class="container">
+    <div style="display: flex; justify-content: center;">
+
+        <div th:insert="blocks/left_panel :: nav_btns_root"></div>
+
+            <div class="messages_page flex_justify_center">
+                <div class="chats">
+                    <div class="main_chat_header flex_space_between">
+                        <p>Messages</p>
+                        <button class="create_chat">+</button>
+                    </div>
+                    <div class="search_bar">
+                        <input class="form-control search_chats" type="text" placeholder="Search" aria-label="Search">
+                    </div>
+
+                    <ul class="list-group">
+
+                        <li class="list-group-item">
+                            <div class="flex_space_between">
+                                <img class="avatar_img" src="https://2.bp.blogspot.com/-Stm39RLc1wU/UCEJ1NHaWeI/AAAAAAAACLk/2uYnJX2jUVE/s1600/20120807.png">
+                                <div>
+                                    <div class="flex_space_between chat_username">
+                                        <p class="username">Vladz</p>
+                                        <p class="id">@Vladz1234</p>
+                                    </div>
+                                    <p class="last-message">123</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="list-group-item">
+                            <div class="flex_space_between">
+                                <img class="avatar_img" src="https://2.bp.blogspot.com/-Stm39RLc1wU/UCEJ1NHaWeI/AAAAAAAACLk/2uYnJX2jUVE/s1600/20120807.png">
+                                <div>
+                                    <div class="flex_space_between chat_username">
+                                        <p class="username">Vladz</p>
+                                        <p class="id">@Vladz1234</p>
+                                    </div>
+                                    <p class="last-message">123</p>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="message_h">
+                    <div class="message_header">
+                        <div>
+                            <img class="avatar_img" style="float: left;" src="https://2.bp.blogspot.com/-Stm39RLc1wU/UCEJ1NHaWeI/AAAAAAAACLk/2uYnJX2jUVE/s1600/20120807.png">
+                            <div class="" style="float: left;">
+                                <p style="margin: 0;" class="username">Vladz</p>
+                                <p class="id">@Vladz1234</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Messages -->
+                    <div class="message">
+                        <div class="container_message">
+                            <img src="https://2.bp.blogspot.com/-Stm39RLc1wU/UCEJ1NHaWeI/AAAAAAAACLk/2uYnJX2jUVE/s1600/20120807.png" alt="Avatar" style="width:100%;">
+                            <p>Hello. How are you today?</p>
+                            <span class="time-right">11:00</span>
+                        </div>
+                        <div class="container_message darker">
+                            <img src="https://2.bp.blogspot.com/-Stm39RLc1wU/UCEJ1NHaWeI/AAAAAAAACLk/2uYnJX2jUVE/s1600/20120807.png" alt="Avatar" class="right" style="width:100%;">
+                            <p>Hey! I'm fine. Thanks for asking!</p>
+                            <span class="time-left">11:01</span>
+                        </div>
+                    </div>
+
+                    <div class="message_form">
+                        <form name="message_send">
+                            <div class="flex_justify_center">
+                                <input type="text" class="form-control" placeholder="Enter message">
+                                <button type="submit" class=" btn btn-primary send_message">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+<!--        <div th:insert="blocks/right_panel :: right_panel"></div>-->
+    </div>
+</div>
+
+<style>
+    .flex_justify_center{
+        display: flex;
+        justify-content: center;
+    }
+    .flex_space_between{
+        display: flex;
+        justify-content: space-between;
+    }
+    .chats{
+        /*border: 1px solid #fff;*/
+    }
+    .message{
+        /* overflow-y: scroll; */
+        overflow:auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .message_form{
+        /* height: 10vh; */
+        margin: 0 5px 5px 5px;
+    }
+    .message_h{
+        display: flex;
+        flex-direction: column;
+        background-color: #15202B;
+        /*border: 1px solid #fff;*/
+        width: 60vw;
+    }
+    .message_header{
+        background-color: #081728; /* #15202B */
+        color: white;
+        /*border:  1px solid #fff ;*/
+    }
+    .message_header > div{
+        margin: 10px 0 0 20px;
+    }
+    .message{
+        margin-top: 2vh;
+        height: 87vh;
+    }
+    .avatar_img{
+        max-width: 20px !important;
+        max-height: 30px;
+        width: 100% !important;
+        margin-right: 20px !important;
+        border-radius: 50% !important;
+    }
+    .messages_page > div{
+        margin-right: 20px;
+    }
+    .messages_page{
+        background-color: #15202B;
+    }
+    .main_chat_header > p {
+        color: #fff;
+        font-size: 18px;
+        margin-right: 5px;
+    }
+    .main_chat_header > button {
+        width: 30px;
+        height: 30px;
+        color: #1DA1F2;
+        background-color: transparent;
+        border: none;
+    }
+    .main_chat_header > button:hover {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #162D40;
+    }
+    .list-group-item{
+        color: #fff;
+        /* width: 15vw; */
+        width: 100%;
+        /* height: 6vh; */
+        height: 5rem;
+        min-height: 65px;
+        background-color: #15202B;
+    }
+    .last-message{
+        color:  #cccccc;
+        float: right;
+        width: 50px;
+    }
+    .id{
+        color: #a3a3a3;
+        width: 100px;
+    }
+    .search_bar{
+        margin-bottom: 10px;
+    }
+
+
+
+
+    body {
+        margin: 0 auto;
+        /* max-width: 1000px; */
+        padding: 0 20px;
+        background-color: #15202B;
+    }
+
+    .darker {
+        border-color: #fff;
+        background-color: #1f83c2;
+    }
+    .container_message {
+        background-color: #1B95E0;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+        width: 90%;
+    }
+    .container_message{
+        margin: 5px;
+    }
+    .container_message::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    .container_message img {
+        float: left;
+        max-width: 30px;
+        width: 100%;
+        margin-right: 20px;
+        border-radius: 50%;
+    }
+
+    .container_message img.right {
+        float: right;
+        margin-left: 20px;
+        margin-right:0;
+    }
+
+    .time-right {
+        float: right;
+        color: #fff;
+    }
+
+    .time-left {
+        float: left;
+        color: #fff;
+    }
+
+
+
+
+    /* Scroll 3 */
+    .message::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    .message::-webkit-scrollbar-track {
+        background-color: transparent;
+        border-radius: 10px;
+    }
+    .message::-webkit-scrollbar-thumb {
+        background-color: rgba(29, 161, 242, 0.4);
+        border-radius: 10px;
+    }
+
+
+
+
+
+
+
+
+    button{
+        background-color: #15202B;
+        color: white;
+    }
+    button:hover{
+        color: #1DA1F2 !important;
+        background-color: #162D40 !important;
+    }
+
+
+    .nav_btns > button {
+        font-size: 20px;
+    }
+
+
+</style>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -78,8 +78,14 @@
 			<scope>test</scope>
 		</dependency>
 
+<!--		Chat-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
 
-<!--		<dependency>-->
+
+        <!--		<dependency>-->
 <!--			<groupId>org.flywaydb</groupId>-->
 <!--			<artifactId>flyway-core</artifactId>-->
 <!--		</dependency>-->
