@@ -1,22 +1,19 @@
 package com.example.social_network.controller;
 
-import com.example.social_network.entity.Message;
-import com.example.social_network.entity.MyUser;
-import com.example.social_network.entity.Role;
+import com.example.social_network.entity.*;
+import com.example.social_network.repository.ChatRepository;
+import com.example.social_network.repository.MessageRepository;
 import com.example.social_network.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.logging.Logger;
 
 @Controller
 public class ChatController {
@@ -24,32 +21,102 @@ public class ChatController {
     @Autowired
     private UserRepository userRepository;
 
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("topic/public")
-    public Message sendMessage(@Payload Message message){
-        return message;
-    }
+    @Autowired
+    private ChatRepository chatRepository;
 
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public Message addUser(@Payload Message message,
-                           SimpMessageHeaderAccessor headerAccessor){
-        //Add username in web socket session
-        headerAccessor.getSessionAttributes().put("username", message.getSenderId());
-        return message;
-    }
-
+    @Autowired
+    private MessageRepository messageRepository;
 
     @GetMapping("/messages")
     public String messages(Model model){
         MyUser user = getUser();
 
         model.addAttribute("user", user);
+        model.addAttribute("chats", user.getChats());
 
+        //TODO:
+        //Change findAll to 'findAllFriends'
+        model.addAttribute("friends", userRepository.findAll());
+
+        return "messages";
+
+    }
+
+
+    @RequestMapping("/messages/create-chat/{invited_id}")
+    public String createChat(
+            Model model,
+            @PathVariable("invited_id") final Long user_id
+    ){
+
+
+        Chat chat = new Chat();
+        chat.setCreated_at(Calendar.getInstance().getTime());
+
+        MyUser user = getUser();
+        MyUser invited = userRepository.findById(user_id).get();
+
+        ChatUser chatUser1 = new ChatUser();
+        chatUser1.setChat(chat);
+        chatUser1.setUser(user);
+
+        ChatUser chatUser2 = new ChatUser();
+        chatUser2.setChat(chat);
+        chatUser2.setUser(invited);
+
+        user.getChats().add(chatUser1);
+        invited.getChats().add(chatUser1);
+        user.getChats().add(chatUser2);
+        invited.getChats().add(chatUser2);
+
+        chat.getUsers().add(chatUser1);
+        chat.getUsers().add(chatUser2);
+
+
+        chat.setChat_name(chatUser1.getUser().getUsername() + ", " +
+                            chatUser2.getUser().getUsername());
+
+        chatRepository.save(chat);
+
+
+        model.addAttribute("user", user);
+        model.addAttribute("chat_id", chat.getChatId());
+        model.addAttribute("chats", user.getChats());
 
         return "messages";
     }
+    
+    
+    
 
+//    @PostMapping("/messages/{chat_id}")
+//    public String sendMessage(
+//        Model model,
+//        @PathVariable("chat_id") final Long chat_id,
+//        @RequestParam(value = "sender_id", required = true) Long sender_id,
+//        @RequestParam(value = "message", required = true) String message
+//    ){
+//
+//        Chat chat = chatRepository.findByChatId(sender_id);
+//        if (chat == null)
+//            //TODO:
+//            //Add error page
+//            return "error";
+//
+//        Message mess = new Message();
+//        mess.setSenderId(sender_id);
+//        mess.setChat(chat);
+//        mess.setContent(message);
+//        mess.setSended_at(Calendar.getInstance().getTime());
+//
+//        model.addAttribute("user", getUser());
+//
+//        //TODO:
+//        //Change finAll to findAllById
+//        model.addAttribute("messages", messageRepository.findAll());
+//
+//        return "messages/" + chat_id;
+//    }
 
     public MyUser getUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

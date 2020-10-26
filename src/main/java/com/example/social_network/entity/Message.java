@@ -12,19 +12,21 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long message_id;
 
-    private Long senderId;
+//    private Long senderId;
     private String content;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm")
     private Date sended_at;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "chat_id", nullable = false)
+//    @OneToOne(fetch = FetchType.EAGER, optional = false)
+//    @JoinColumn(name = "chat_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "chat_id")
     private Chat chat;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private MyUser user;
+    private MyUser user;                                    //sender_id
 
 
     public Long getMessage_id() {
@@ -33,14 +35,6 @@ public class Message {
 
     public void setMessage_id(Long message_id) {
         this.message_id = message_id;
-    }
-
-    public Long getSenderId() {
-        return senderId;
-    }
-
-    public void setSenderId(Long senderId) {
-        this.senderId = senderId;
     }
 
     public String getContent() {

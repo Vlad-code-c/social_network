@@ -1,13 +1,12 @@
 package com.example.social_network.entity;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.NaturalIdCache;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "t_user")
@@ -43,15 +42,16 @@ public class MyUser {
     private Date updated_at;
 
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "chats_users",
-            joinColumns = {
-                @JoinColumn(name = "user_id")
-            },
-            inverseJoinColumns = {
-                @JoinColumn(name = "chat_id")
-            })
-    private Set<Chat> chats = new HashSet<Chat>();
+//    @ManyToMany(cascade = {CascadeType.ALL})
+//    @JoinTable(name = "chats_users",
+//            joinColumns = {
+//                @JoinColumn(name = "user_id")
+//            },
+//            inverseJoinColumns = {
+//                @JoinColumn(name = "chat_id")
+//            })
+    @OneToMany(mappedBy = "user")
+    private Set<ChatUser> chats = new HashSet<ChatUser>();
 
 
     @OneToOne(fetch = FetchType.LAZY,
@@ -212,11 +212,29 @@ public class MyUser {
         this.updated_at = updated_at;
     }
 
-    public Set<Chat> getChats() {
+    public Set<ChatUser> getChats() {
+        //TODO:
+        //Sort chats by last message's send datetime
+//        List<ChatUser> users = new ArrayList<>();
+//        users.addAll(chats);
+//
+//        boolean sorted;
+//        do {
+//            sorted = true;
+//            for (int i = 0; i < users.size() - 1; i++){
+//                if (users.get(i).getChat().getLastMessageDate().compareTo(users.get(i+1).getChat().getLastMessageDate()) > 0){
+//                    ChatUser aux = users.get(i);
+//                    users.set(i, users.get(i+1));
+//                    users.set(i + 1, aux);
+//                    sorted = false;
+//                }
+//            }
+//        } while (!sorted);
+
         return chats;
     }
 
-    public void setChats(Set<Chat> chats) {
+    public void setChats(Set<ChatUser> chats) {
         this.chats = chats;
     }
 

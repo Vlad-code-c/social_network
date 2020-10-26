@@ -8,6 +8,41 @@
 <body>
 
 
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <h2>New Chat</h2>
+        <ul class="list-group">
+
+            <li th:each="friend : ${friends}" class="list-group-item">
+                <div class="chat_pers_item">
+                    <img class="avatar_img" th:src="${friend.getProfile_photo_url()}" src="">
+                    <div>
+                        <div class="add_chat_username">
+                            <p class="username_chat" th:text="${friend.getUsername()}">Username</p>
+                            <p class="id" th:text="${friend.getCustomId()}">@Id0000</p>
+                        </div>
+                    </div>
+                    <div class="add_chat_button">
+                        <a th:href="@{'/messages/create-chat/' + ${friend.getId()}}">
+                            <button type="submit" class="btn btn-primary chat_send_mess">Next</button>
+                        </a>
+                    </div>
+                </div>
+            </li>
+
+
+        </ul>
+    </div>
+
+</div>
+
+
+
 <div class="container">
     <div style="display: flex; justify-content: center;">
 
@@ -25,31 +60,33 @@
 
                     <ul class="list-group">
 
-                        <li class="list-group-item">
+                        <p th:if="${chats.empty}">You dont have chats. Create one.</p>
+
+                        <li th:each="chat : ${chats}" class="list-group-item">
                             <div class="flex_space_between">
-                                <img class="avatar_img" src="https://2.bp.blogspot.com/-Stm39RLc1wU/UCEJ1NHaWeI/AAAAAAAACLk/2uYnJX2jUVE/s1600/20120807.png">
+                                <img class="avatar_img" th:src="${chat.getAvatarImage()}" src="">
                                 <div>
                                     <div class="flex_space_between chat_username">
-                                        <p class="username">Vladz</p>
-                                        <p class="id">@Vladz1234</p>
+                                        <p class="username" th:text="${chat.getChat_name()}">Vladz</p>
+<!--                                        <p class="id">@Vladz1234</p>-->
                                     </div>
-                                    <p class="last-message">123</p>
+                                    <p class="last-message" th:text="${chat.getLastMessage()}">123</p>
                                 </div>
                             </div>
                         </li>
 
-                        <li class="list-group-item">
-                            <div class="flex_space_between">
-                                <img class="avatar_img" src="https://2.bp.blogspot.com/-Stm39RLc1wU/UCEJ1NHaWeI/AAAAAAAACLk/2uYnJX2jUVE/s1600/20120807.png">
-                                <div>
-                                    <div class="flex_space_between chat_username">
-                                        <p class="username">Vladz</p>
-                                        <p class="id">@Vladz1234</p>
-                                    </div>
-                                    <p class="last-message">123</p>
-                                </div>
-                            </div>
-                        </li>
+<!--                        <li class="list-group-item">-->
+<!--                            <div class="flex_space_between">-->
+<!--                                <img class="avatar_img" src="https://2.bp.blogspot.com/-Stm39RLc1wU/UCEJ1NHaWeI/AAAAAAAACLk/2uYnJX2jUVE/s1600/20120807.png">-->
+<!--                                <div>-->
+<!--                                    <div class="flex_space_between chat_username">-->
+<!--                                        <p class="username">Vladz</p>-->
+<!--                                        <p class="id">@Vladz1234</p>-->
+<!--                                    </div>-->
+<!--                                    <p class="last-message">123</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </li>-->
 
                     </ul>
                 </div>
@@ -95,6 +132,63 @@
 </div>
 
 <style>
+    .add_chat_button{
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+    }
+    .chat_pers_item{
+        display: flex;
+        align-items: center;
+    }
+
+    .add_chat_username{
+        display: flex;
+        flex-direction: row;
+    }
+
+    /* Modal Window start */
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 25%; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        color: black;
+        opacity: 0.5;
+        float: right;
+        position: relative;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    /* Modal Window stop */
+
     .flex_justify_center{
         display: flex;
         justify-content: center;
@@ -167,6 +261,10 @@
         border-radius: 50%;
         background-color: #162D40;
     }
+    .list-group{
+        overflow-y: auto;
+        max-height: 90vh;
+    }
     .list-group-item{
         color: #fff;
         /* width: 15vw; */
@@ -179,7 +277,16 @@
     .last-message{
         color:  #cccccc;
         float: right;
-        width: 50px;
+        width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .username{
+        max-width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .id{
         color: #a3a3a3;
@@ -247,15 +354,15 @@
 
 
     /* Scroll 3 */
-    .message::-webkit-scrollbar {
+    .message::-webkit-scrollbar, .list-group::-webkit-scrollbar {
         width: 10px;
         height: 10px;
     }
-    .message::-webkit-scrollbar-track {
+    .message::-webkit-scrollbar-track, .list-group::-webkit-scrollbar-track {
         background-color: transparent;
         border-radius: 10px;
     }
-    .message::-webkit-scrollbar-thumb {
+    .message::-webkit-scrollbar-thumb, .list-group::-webkit-scrollbar-thumb {
         background-color: rgba(29, 161, 242, 0.4);
         border-radius: 10px;
     }
@@ -289,5 +396,28 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script>
+        var modal = document.getElementById("myModal");
+
+        var btn = document.getElementsByClassName("create_chat")[0];
+
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if(event.target == modal){
+                modal.style.display = "none";
+            }
+        }
+
+    </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.example.social_network.entity;
 
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -10,9 +11,14 @@ import java.util.Set;
 @Entity
 @Table(name = "chats")
 public class Chat {
+
+//    @Autowired
+//    private MessageRepository messageRepository;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long chat_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "chat_id")
+    private Long chatId;
 
     private String chat_name;
 
@@ -20,22 +26,49 @@ public class Chat {
     private Date created_at;
 
 
-    @ManyToMany(mappedBy = "chats", cascade = {CascadeType.ALL})
-    private Set<MyUser> users = new HashSet<MyUser>();
+    @OneToMany(mappedBy = "chat", cascade = {CascadeType.ALL})
+    private Set<ChatUser> users = new HashSet<ChatUser>();
 
-    @OneToOne(fetch = FetchType.LAZY,
-                cascade = CascadeType.ALL,
-                mappedBy = "user")
-    private Message message;
+    @OneToMany(mappedBy = "chat", cascade = {CascadeType.ALL})
+    private Set<Message> messages = new HashSet<Message>();
 
     public Chat(){}
 
-    public Long getChat_id() {
-        return chat_id;
+
+    public String getAvatarImage(){
+        MyUser user = new MyUser();
+        user.setProfile_photo_url("https://www.travelcontinuously.com/wp-content/uploads/2018/04/empty-avatar.png");
+
+        if (users.size() != 0)
+            user = ((ChatUser) users.toArray()[0]).getUser();
+
+        return user.getProfile_photo_url();
     }
 
-    public void setChat_id(Long chat_id) {
-        this.chat_id = chat_id;
+    public String getLastMessage(){
+
+        if (this.messages.size() != 0){
+            return ((Message) this.messages.toArray()[messages.size() - 1]).getContent();
+        } else {
+            return "None";
+        }
+    }
+
+    public Date getLastMessageDate(){
+
+        if (this.messages.size() != 0){
+            return ((Message) this.messages.toArray()[messages.size() - 1]).getSended_at();
+        } else {
+            return null;
+        }
+    }
+
+    public Long getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(Long chatId) {
+        this.chatId = chatId;
     }
 
     public String getChat_name() {
@@ -54,19 +87,19 @@ public class Chat {
         this.created_at = created_at;
     }
 
-    public Set<MyUser> getUsers() {
+    public Set<ChatUser> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<MyUser> users) {
+    public void setUsers(Set<ChatUser> users) {
         this.users = users;
     }
 
-    public Message getMessage() {
-        return message;
-    }
-
-    public void setMessage(Message message) {
-        this.message = message;
-    }
+//    public Message getMessage() {
+//        return messages;
+//    }
+//
+//    public void setMessage(Message messages) {
+//        this.messages = messages;
+//    }
 }
