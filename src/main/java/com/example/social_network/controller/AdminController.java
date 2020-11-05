@@ -35,8 +35,7 @@ public class AdminController {
 
     }
 
-    //TODO:
-    //SQL Migration
+    //TODO: SQL Migration
     @GetMapping("/addAdmin")
     public String addAdmin(Model model){
         //ong id, String username, String password, Set<Role> roles, String bio,

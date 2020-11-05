@@ -213,8 +213,7 @@ public class MyUser {
     }
 
     public Set<ChatUser> getChats() {
-        //TODO:
-        //Sort chats by last message's send datetime
+        //TODO: Sort chats by last message's send datetime
 //        List<ChatUser> users = new ArrayList<>();
 //        users.addAll(chats);
 //

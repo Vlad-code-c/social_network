@@ -1,11 +1,14 @@
 package com.example.social_network.entity;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -61,6 +64,38 @@ public class Chat {
         } else {
             return null;
         }
+    }
+
+
+    static public boolean ifChatExist(List<Chat> chats, MyUser user1, MyUser user2){
+        //1. Create chat
+        //2. If in chats exists chat which contains exactly (and only) that 2 users, return false
+        //3. Else return true
+
+        //TODO: Improve this shit
+
+        for (Chat chat : chats) {
+            Set<ChatUser> users = chat.getUsers();
+            if (users.size() == 2){
+                if ((((ChatUser) users.toArray()[0]).getUser().getId() == user1.getId() ||
+                        ((ChatUser) users.toArray()[1]).getUser().getId() == user1.getId()) &&
+                        (((ChatUser) users.toArray()[0]).getUser().getId() == user2.getId() ||
+                                ((ChatUser) users.toArray()[1]).getUser().getId() == user2.getId())){
+                    return false;
+
+                }
+            }
+        }
+        return true;
+    }
+
+
+    public Set<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
     }
 
     public Long getChatId() {

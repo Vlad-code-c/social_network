@@ -1,11 +1,16 @@
 package com.example.social_network.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "chat_user")
-public class ChatUser {
+public class ChatUser implements Serializable {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    private Long id;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

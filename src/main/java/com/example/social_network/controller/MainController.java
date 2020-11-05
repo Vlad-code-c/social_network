@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -37,13 +38,27 @@ public class MainController {
 
 
 
-    @GetMapping("/profile")
-    public String profile(Model model){
-        MyUser user = getUser();
+    @GetMapping("/profile/{user_id}")
+    public String profile(Model model, @PathVariable(name = "user_id") Long user_id){
+        MyUser user;
+
+        if (user_id == null){
+            user = getUser();
+        } else {
+            user = userRepository.findFirstById(user_id);
+            if (user == null){
+                return "error/404";
+            }
+        }
+
 
         model.addAttribute("user", user);
+        return "profile";
+    }
 
-
+    @GetMapping("/profile")
+    public String profile(Model model){
+        model.addAttribute("user", getUser());
         return "profile";
     }
 

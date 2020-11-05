@@ -28,9 +28,12 @@
                         </div>
                     </div>
                     <div class="add_chat_button">
-                        <a th:href="@{'/messages/create-chat/' + ${friend.getId()}}">
+<!--                        <a th:href="@{'/messages/create-chat/' + ${friend.getId()}}">-->
+                        <form method="get" action="" th:action="@{/messages/}">
+                            <input style="display: none;" name="friend_id" type="text" th:text="${friend.getId()}">
                             <button type="submit" class="btn btn-primary chat_send_mess">Next</button>
-                        </a>
+                        </form>
+<!--                        </a>-->
                     </div>
                 </div>
             </li>
@@ -101,10 +104,26 @@
                             </div>
                         </div>
                     </div>
-
+<!--TODO: Add message.empty-->
                     <!-- Messages -->
-                    <div class="message">
-                        <div class="container_message">
+                    <span th:each="message : ${messages}">
+                        <div th:if="${message.isIs_right()}" class="message">
+                            <div class="container_message">
+                                <img th:src="${message.getUser().getProfile_photo_url()}" alt="Avatar" style="width:100%;">
+                                <p th:text="${message.getContent()}">Error</p>
+                                <span th:text="${message.getSended_at()}" class="time-right">11:00</span>
+                            </div>
+                        </div>
+
+                        <div th:unless="${message.isIs_right()}" class="container_message darker">
+                            <img th:src="${message.getUser().getProfile_photo_url()}" src="" alt="Avatar" class="right" style="width:100%;">
+                            <p th:text="${message.getContent()}">Error</p>
+                            <span th:text="${message.getSended_at()}" class="time-left">11:01</span>
+                        </div>
+                    </span>
+
+                        <!--
+                         <div class="container_message">
                             <img src="https://2.bp.blogspot.com/-Stm39RLc1wU/UCEJ1NHaWeI/AAAAAAAACLk/2uYnJX2jUVE/s1600/20120807.png" alt="Avatar" style="width:100%;">
                             <p>Hello. How are you today?</p>
                             <span class="time-right">11:00</span>
@@ -114,6 +133,7 @@
                             <p>Hey! I'm fine. Thanks for asking!</p>
                             <span class="time-left">11:01</span>
                         </div>
+                         -->
                     </div>
 
                     <div class="message_form">

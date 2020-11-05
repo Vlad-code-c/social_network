@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 public class MyErrorController implements ErrorController {
     @Override
     public String getErrorPath() {
-        return "/error/500";
+        return "/error";
     }
+
+
 
     @GetMapping("/error")
     public String handleError(HttpServletRequest request){
