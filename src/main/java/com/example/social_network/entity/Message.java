@@ -24,10 +24,9 @@ public class Message {
     @JoinColumn(name = "chat_id")
     private Chat chat;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private MyUser user;                                    //sender_id
-
 
     public Long getMessage_id() {
         return message_id;

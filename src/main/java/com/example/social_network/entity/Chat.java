@@ -6,10 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import static java.util.stream.Collectors.toList;
 
 @Entity
 @Table(name = "chats")
@@ -33,6 +32,7 @@ public class Chat {
     private Set<ChatUser> users = new HashSet<ChatUser>();
 
     @OneToMany(mappedBy = "chat", cascade = {CascadeType.ALL})
+    @OrderBy("sended_at asc")
     private Set<Message> messages = new HashSet<Message>();
 
     public Chat(){}
@@ -90,8 +90,29 @@ public class Chat {
     }
 
 
-    public Set<Message> getMessages() {
-        return messages;
+    public Set<Message> getMessagesArrayList() {
+        ArrayList<Message> mess = new ArrayList<>(messages);
+
+        boolean sorted = false;
+        do {
+            sorted = true;
+            for (int i = 0; i < mess.size() - 1; i++) {
+                if ( mess.get(i).getSended_at()
+                        .compareTo(mess.get(i+1).getSended_at()) > 0){
+                    Message aux = ((Message) mess.toArray()[i]);
+                    mess.set(i, mess.get(i+1));
+                    mess.set(i+1, aux);
+                    sorted = false;
+                }
+            }
+        } while (!sorted);
+
+        Set<Message> messages_set = new HashSet<>(mess);
+        return messages_set;
+    }
+
+    public Set<Message> getMessages(){
+        return this.messages;
     }
 
     public void setMessages(Set<Message> messages) {

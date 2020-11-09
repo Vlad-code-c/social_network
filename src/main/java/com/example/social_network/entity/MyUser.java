@@ -54,10 +54,8 @@ public class MyUser {
     private Set<ChatUser> chats = new HashSet<ChatUser>();
 
 
-    @OneToOne(fetch = FetchType.LAZY,
-                cascade = CascadeType.ALL,
-                mappedBy = "user")
-    private Message message;
+    @OneToMany(mappedBy = "user")
+    private Set<Message> messages = new HashSet<>();
 
     public String getCustomId(){
         return this.getUsername().trim() + "@" +
@@ -237,11 +235,11 @@ public class MyUser {
         this.chats = chats;
     }
 
-    public Message getMessage() {
-        return message;
+    public Set<Message> getMessages() {
+        return messages;
     }
 
-    public void setMessage(Message message) {
-        this.message = message;
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
     }
 }

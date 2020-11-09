@@ -24,9 +24,29 @@ public class MessageDisplay {
             messageDisplay.setUser(message.getUser());
 
             messageDisplay.setIs_right(message.getUser().getId() == user.getId());
+
+            messagesDisplay.add(messageDisplay);
         }
 
         return messagesDisplay;
+    }
+
+    public String getBackgroundUrl(){
+        return "background-image: url(" + user.getProfile_photo_url() + ")";
+    }
+
+    public String getHtmlMessage(){
+        return String.format("<div class=\"msg %s\">\n" +
+                "                                    <div class=\"msg-img\" style=\"%s\"></div>\n" +
+                "\n" +
+                "                                    <div class=\"msg-bubble\">\n" +
+                "                                        <div class=\"msg-info\">\n" +
+                "                                            <div class=\"msg-info-name\" >%s</div>\n" +
+                "                                            <div class=\"msg-info-time\" >%s</div>\n" +
+                "                                        </div>\n" +
+                "\n" +
+                "                                        <div class=\"msg-text\" >%s</div>\n" +
+                "                                    </div>", this.is_right ? "right-msg" : "left-msg", this.getBackgroundUrl(), this.getUser().getUsername(), this.getSended_at(), this.getContent());
     }
 
     public String getContent() {

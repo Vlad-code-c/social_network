@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
-                .antMatchers("/admin", "/profile", "/main", "/messages", "/")
+                .antMatchers("/admin", "/profile", "/main", "/messages", "/messages/*", "/")
                     .authenticated()
                 .and()
                     .logout()
