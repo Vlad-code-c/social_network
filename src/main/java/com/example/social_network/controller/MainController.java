@@ -3,13 +3,14 @@ package com.example.social_network.controller;
 import com.example.social_network.entity.MyUser;
 import com.example.social_network.entity.Role;
 import com.example.social_network.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -62,6 +63,18 @@ public class MainController {
         return "profile";
     }
 
+    @PostMapping("/changeFriendStatus")
+    @ResponseBody
+    public String changeFriendStatus(
+            @RequestParam(name = "userid", required = true) final Long userId){
+        MyUser curentUser = getUser();
+        MyUser newUser = userRepository.findFirstById(userId);
+
+        Logger logger = LoggerFactory.getLogger(MainController.class);
+        logger.error("Changed Friend Status");
+
+        return "Succes";
+    }
 
     public MyUser getUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

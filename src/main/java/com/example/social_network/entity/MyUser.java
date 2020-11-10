@@ -211,23 +211,6 @@ public class MyUser {
     }
 
     public Set<ChatUser> getChats() {
-        //TODO: Sort chats by last message's send datetime
-//        List<ChatUser> users = new ArrayList<>();
-//        users.addAll(chats);
-//
-//        boolean sorted;
-//        do {
-//            sorted = true;
-//            for (int i = 0; i < users.size() - 1; i++){
-//                if (users.get(i).getChat().getLastMessageDate().compareTo(users.get(i+1).getChat().getLastMessageDate()) > 0){
-//                    ChatUser aux = users.get(i);
-//                    users.set(i, users.get(i+1));
-//                    users.set(i + 1, aux);
-//                    sorted = false;
-//                }
-//            }
-//        } while (!sorted);
-
         return chats;
     }
 
